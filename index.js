@@ -88,18 +88,17 @@ async function getOption() {
 
 async function generate(options) {
     const { name, desc, useTS } = options;
-    await fs.mkdir(`${dir}/${name}`)
+    await fs.mkdir(`${dir}/dmapp`)
     await fs.mkdir(`${dir}/service`)
-    await fs.mkdir(`${dir}/service/keys`)
-    fs.copySync(path.resolve(__dirname, "./template/"), `${dir}/${name}`);
+    await fs.mkdir(`${dir}/keys`)
+    fs.copySync(path.resolve(__dirname, "./template/"), `${dir}`);
 
     // 写入 README
-    fs.writeFileSync(path.resolve(dir, "README.md"), `# ${name}\n\n${desc}\n`);
-    const pkgPath = path.resolve(dir, "package.json");
+    fs.writeFileSync(path.resolve(`${dir}/dmapp`, "README.md"), `# ${name}\n\n${desc}\n`);
+    const pkgPath = path.resolve(`${dir}/dmapp`, "package.json");
     // 修改 package.json
     const json = JSON.parse(fs.readFileSync(pkgPath));
 
-    const bName = path.basename(dir);
     json.name = name;
     json.description = desc;
     json.dmappId = options.dmappId;
