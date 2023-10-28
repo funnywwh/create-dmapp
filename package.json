@@ -6,5 +6,9 @@
   "bin": "index.js",
   "repository": "https://gitlab.rightchaintech.com/zdan_dmapp/create-dmapp.git",
   "author": "winger",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "prompts": "^2.4.2",
+    "validate-npm-package-name": "^5.0.0"
+  }
 }
