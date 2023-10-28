@@ -1,0 +1,10 @@
+{
+  "name": "create-dmapp",
+  "version": "1.0.0",
+  "description": "zdan create dmapp template",
+  "main": "index.js",
+  "bin": "index.js",
+  "repository": "https://gitlab.rightchaintech.com/zdan_dmapp/create-dmapp.git",
+  "author": "winger",
+  "license": "MIT"
+}
