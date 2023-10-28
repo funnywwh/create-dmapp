@@ -1,0 +1,5 @@
+node_modules/
+template/node_modules/
+index.js
+.vscode/launch.json
+yarn.lock
