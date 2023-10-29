@@ -19,7 +19,7 @@ if(!pkgName){
     pkgName = 'mydmapp'
 }
 
-const dir = path.resolve(
+let dir = path.resolve(
     pkgName.startsWith("@") ? pkgName.split("/")[1] : pkgName
 );
 async function getOption() {
@@ -50,6 +50,11 @@ async function getOption() {
         options.dmappId = keys.dmappId
     }
     options.keys = keys;
+
+    pkgName = options.name
+    dir = path.resolve(
+        pkgName.startsWith("@") ? pkgName.split("/")[1] : pkgName
+    );    
     return options;
 }
 
@@ -68,9 +73,10 @@ async function getOption() {
         await fs.remove(dir);
     }
 
-    fs.mkdirpSync(dir);
 
     const options = await getOption();
+
+    fs.mkdirpSync(dir);
 
     await generate(options);
 
@@ -93,6 +99,7 @@ async function generate(options) {
     await fs.mkdir(`${dir}/keys`)
     fs.copySync(path.resolve(__dirname, "./template/"), `${dir}`);
 
+    //修改dmapp
     // 写入 README
     fs.writeFileSync(path.resolve(`${dir}/dmapp`, "README.md"), `# ${name}\n\n${desc}\n`);
     const pkgPath = path.resolve(`${dir}/dmapp`, "package.json");
@@ -105,6 +112,15 @@ async function generate(options) {
     json.dependencies['zdan_jsapi'] = 'http://gitlab.rightchaintech.com/wuwenhui/zdan_jsapi.git'
     await fs.writeFileSync(pkgPath, JSON.stringify(json, null, 2) + "\n");
 
+    //修改service
+    const servicePkgPath = path.resolve(`${dir}/dmapp`, "package.json");
+    // 修改 package.json
+    const serviceJson = JSON.parse(fs.readFileSync(servicePkgPath));
+
+    serviceJson.name = `service-${name}`;
+    serviceJson.description = desc;
+    serviceJson.dmappId = options.dmappId;
+    await fs.writeFileSync(servicePkgPath, JSON.stringify(json, null, 2) + "\n");
 
     await fs.writeFile(`${dir}/keys/qrkey`,options.keys.qrKey);
     await fs.writeFile(`${dir}/keys/pubkey`,options.keys.pubKey);
@@ -117,9 +133,16 @@ async function createDMappKey(){
         pubKey:'',
     };
     let qrKeyBin = await zdan.CreateQRPrivateKey();
+    keys.dmappId = await zdan.NodeIdHex();
     
     keys.qrKey = zdan.Uint8Array2Base64(qrKeyBin);
-    keys.pubKey = zdan.Uint8Array2Base64(await zdan.GetPubKey());
-    keys.dmappId = await zdan.NodeIdHex();
+    let pubkeyBin = await zdan.GetPubKey();
+    keys.pubKey = zdan.Uint8Array2Base64(pubkeyBin);
+
+    let loginSign = {
+        pubkey:keys.pubKey,
+        sign:zdan.Uint8Array2Base64(await zdan.Sign(pubkeyBin)),
+    }
+    console.log(JSON.stringify(loginSign))
     return keys;
 }

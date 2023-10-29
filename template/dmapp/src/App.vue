@@ -1,5 +1,16 @@
 <script setup lang="ts">
+import { onMounted,getCurrentInstance } from 'vue';
 import HelloWorld from './components/HelloWorld.vue'
+import { MSService } from "zdan_jsapi"
+const microService:MSService = getCurrentInstance()?.appContext.config.globalProperties?.microService;
+onMounted(async ()=>{
+  
+})
+let callApi = async ()=>{
+  console.log('[[call hello')
+  await microService.Call('hello',{})
+  console.log(']]call hello')
+}
 </script>
 
 <template>
@@ -11,7 +22,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld msg="call micro service api" @click="callApi"/>
 </template>
 
 <style scoped>

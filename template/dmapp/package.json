@@ -1,6 +1,6 @@
 {
   "name": "demo1",
-  "dmappId":"",
+  "dmappId":"96AC8EBB3795934111702DEEEE3E24B898F43085",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "zdan_jsapi":"/media/winger/rk/zdan/microapp/zdan_jsapi"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
