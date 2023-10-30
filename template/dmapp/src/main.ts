@@ -8,7 +8,7 @@ const ms = new zdan_jsapi.MSService("main",`${Date.now()}`);
 
 (async ()=>{
     await ms.Open({})
-    createApp(App,{
-        microService:ms,
-    }).mount('#app')    
+    let app = createApp(App)
+    app.config.globalProperties.microService = ms;
+    app.mount('#app')    
 })()

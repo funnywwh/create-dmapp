@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted,getCurrentInstance } from 'vue';
-import HelloWorld from './components/HelloWorld.vue'
 import { MSService } from "zdan_jsapi"
 const microService:MSService = getCurrentInstance()?.appContext.config.globalProperties?.microService;
 onMounted(async ()=>{
@@ -8,21 +7,13 @@ onMounted(async ()=>{
 })
 let callApi = async ()=>{
   console.log('[[call hello')
-  await microService.Call('hello',{})
-  console.log(']]call hello')
+  let result = await microService.Call('hello',{})
+  console.log(']]call hello result:',result)
 }
 </script>
 
-<template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="call micro service api" @click="callApi"/>
+<template>  
+  <div  @click="callApi">call micro service api</div>
 </template>
 
 <style scoped>
