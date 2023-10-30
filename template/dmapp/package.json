@@ -1,6 +1,6 @@
 {
-  "name": "demo1",
-  "dmappId":"96AC8EBB3795934111702DEEEE3E24B898F43085",
+  "name": "demo0",
+  "dmappId": "008912F328EF5508AA2302F49C45EDC9025A696A",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,12 +11,13 @@
   },
   "dependencies": {
     "vue": "^3.3.4",
-    "zdan_jsapi":"/media/winger/rk/zdan/microapp/zdan_jsapi"
+    "zdan_jsapi": "https://gitlab.rightchaintech.com/wuwenhui/zdan_jsapi.git"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vue-tsc": "^1.8.5"
-  }
+  },
+  "description": ""
 }
