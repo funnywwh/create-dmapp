@@ -113,14 +113,15 @@ async function generate(options) {
     await fs.writeFileSync(pkgPath, JSON.stringify(json, null, 2) + "\n");
 
     //修改service
-    const servicePkgPath = path.resolve(`${dir}/dmapp`, "package.json");
+    const servicePkgPath = path.resolve(`${dir}/service`, "package.json");
     // 修改 package.json
     const serviceJson = JSON.parse(fs.readFileSync(servicePkgPath));
 
     serviceJson.name = `service-${name}`;
     serviceJson.description = desc;
     serviceJson.dmappId = options.dmappId;
-    await fs.writeFileSync(servicePkgPath, JSON.stringify(json, null, 2) + "\n");
+    console.log(`servicePkgPath:${servicePkgPath} serviceJson:${serviceJson}`)
+    await fs.writeFileSync(servicePkgPath, JSON.stringify(serviceJson, null, 2) + "\n");
 
     await fs.writeFile(`${dir}/keys/qrkey`,options.keys.qrKey);
     await fs.writeFile(`${dir}/keys/pubkey`,options.keys.pubKey);
